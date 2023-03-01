@@ -1,4 +1,6 @@
 import pg from 'pg';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 async function connect() {
   if (global.connection) {
@@ -6,8 +8,7 @@ async function connect() {
   }
 
   const pool = new pg.Pool({
-    connectionString:
-      'postgres://earodnsq:s4FU70Wd8YBuUKSmX28WpdlExEPlGGF8@babar.db.elephantsql.com/earodnsq',
+    connectionString: process.env.DB_URL,
   });
   global.connection = pool;
   return pool.connect();

@@ -5,7 +5,6 @@ import clientsRouter from './routes/client.route.js';
 import productsRouter from './routes/product.route.js';
 import salesRouter from './routes/sale.route.js';
 import suppliersRouter from './routes/supplier.route.js';
-import winston from 'winston/lib/winston/config/index.js';
 
 const { combine, timestamp, label, printf } = winston.format;
 const myFormat = printf(({ level, message, label, timestamp }) => {
