@@ -4,7 +4,7 @@ async function createClient(client) {
   return await ClientRepository.insertClient(client);
 }
 
-async function getClients(client) {
+async function getClients() {
   return await ClientRepository.getClients();
 }
 
