@@ -1,5 +1,5 @@
 import ProductRepository from '../repositories/product.repository.js';
-import SupplierRepository from '../repositories/supplier.repository';
+import SupplierRepository from '../repositories/supplier.repository.js';
 
 async function createProduct(product) {
   if (await SupplierRepository.getSupplier(product.supplier_id)) {
