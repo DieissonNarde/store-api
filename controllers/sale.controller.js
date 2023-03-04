@@ -45,16 +45,8 @@ async function deleteSale(req, res, next) {
 async function updateSale(req, res, next) {
   try {
     let sale = req.body;
-    if (
-      !sale.sale_id ||
-      !sale.value ||
-      !sale.date ||
-      !sale.client_id ||
-      !sale.product_id
-    ) {
-      throw new Error(
-        'Sale ID, Value, Date, Client ID e Product ID são obrigatórios.'
-      );
+    if (!sale.sale_id || !sale.value || !sale.date) {
+      throw new Error('Sale ID, Value e Date são obrigatórios.');
     }
     sale = await SaleService.updateSale(sale);
     res.send(sale);
