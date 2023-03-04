@@ -28,7 +28,11 @@ async function createSale(sale) {
   }
 }
 
-async function getSales() {
+async function getSales(product_id) {
+  if (product_id) {
+    return await SaleRepository.getSalesByProductId(product_id);
+  }
+
   return await SaleRepository.getSales();
 }
 
