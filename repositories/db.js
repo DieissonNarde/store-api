@@ -1,17 +1,27 @@
-import pg from 'pg';
+// import pg from 'pg';
+import Sequelize from 'sequelize';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-async function connect() {
-  if (global.connection) {
-    return global.connection.connect();
-  }
+const sequelize = new Sequelize(process.env.DB_URL, {
+  dialect: 'postgres',
+  define: {
+    timestamps: false,
+  },
+});
 
-  const pool = new pg.Pool({
-    connectionString: process.env.DB_URL,
-  });
-  global.connection = pool;
-  return pool.connect();
-}
+export default sequelize;
 
-export { connect };
+// async function connect() {
+//   if (global.connection) {
+//     return global.connection.connect();
+//   }
+
+//   const pool = new pg.Pool({
+//     connectionString: process.env.DB_URL,
+//   });
+//   global.connection = pool;
+//   return pool.connect();
+// }
+
+// export { connect };
