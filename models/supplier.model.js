@@ -1,10 +1,10 @@
 import Sequelize from 'sequelize';
 import db from '../repositories/db.js';
 
-const Client = db.define(
-  'clients',
+const Supplier = db.define(
+  'suppliers',
   {
-    clientId: {
+    supplierId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false,
@@ -14,7 +14,7 @@ const Client = db.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    cpf: {
+    cnpj: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -34,4 +34,4 @@ const Client = db.define(
   { underscored: true }
 );
 
-export default Client;
+export default Supplier;

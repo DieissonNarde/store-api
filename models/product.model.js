@@ -1,10 +1,11 @@
 import Sequelize from 'sequelize';
 import db from '../repositories/db.js';
+import Supplier from './supplier.model.js';
 
-const Client = db.define(
-  'clients',
+const Product = db.define(
+  'products',
   {
-    clientId: {
+    productId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false,
@@ -14,24 +15,22 @@ const Client = db.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    cpf: {
+    description: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    phone: {
-      type: Sequelize.STRING,
+    value: {
+      type: Sequelize.DOUBLE,
       allowNull: false,
     },
-    email: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    address: {
-      type: Sequelize.STRING,
+    stock: {
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
   },
   { underscored: true }
 );
 
-export default Client;
+Product.belongsTo(Supplier, { foreignKey: 'supplierId' });
+
+export default Product;
