@@ -52,7 +52,7 @@ async function updateSupplier(req, res, next) {
   try {
     let supplier = req.body;
     if (
-      !supplier.supplier_id ||
+      !supplier.supplierId ||
       !supplier.name ||
       !supplier.cnpj ||
       !supplier.phone ||
