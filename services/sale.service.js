@@ -5,11 +5,11 @@ import saleRepository from '../repositories/sale.repository.js';
 
 async function createSale(sale) {
   let error = '';
-  if (!(await ClientRepository.getClient(sale.client_id))) {
+  if (!(await ClientRepository.getClient(sale.clientId))) {
     error = 'O id do cliente informado não existe. ';
   }
 
-  const product = await ProductRepository.getProduct(sale.product_id);
+  const product = await ProductRepository.getProduct(sale.productId);
 
   if (!product) {
     error += 'O id do produto informado não existe.';
@@ -28,9 +28,9 @@ async function createSale(sale) {
   }
 }
 
-async function getSales(product_id) {
-  if (product_id) {
-    return await SaleRepository.getSalesByProductId(product_id);
+async function getSales(productId) {
+  if (productId) {
+    return await SaleRepository.getSalesByProductId(productId);
   }
 
   return await SaleRepository.getSales();
@@ -43,7 +43,7 @@ async function getSale(id) {
 async function deleteSale(id) {
   const sale = await SaleRepository.getSale(id);
   if (sale) {
-    const product = await ProductRepository.getProduct(sale.product_id);
+    const product = await ProductRepository.getProduct(sale.productId);
     await SaleRepository.deleteSale(id);
     product.stock++;
     await ProductRepository.updateProduct(product);
@@ -53,17 +53,6 @@ async function deleteSale(id) {
 }
 
 async function updateSale(sale) {
-  let error = '';
-  if (!(await ClientRepository.getClient(sale.client_id))) {
-    error = 'O id do cliente informado não existe. ';
-  }
-  if (!(await ProductRepository.getProduct(sale.product_id))) {
-    error += 'O id do produto informado não existe.';
-  }
-  if (error) {
-    throw new Error(error);
-  }
-
   return await SaleRepository.updateSale(sale);
 }
 

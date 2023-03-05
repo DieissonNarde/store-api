@@ -19,10 +19,10 @@ async function getProduct(id) {
 }
 
 async function deleteProduct(id) {
-  // const sales = await SaleRepository.getSalesByProductId(id);
-  // if (sales) {
-  //   throw new Error('Não é possível excluir o produto pois ele possui vendas.');
-  // }
+  const sales = await SaleRepository.getSalesByProductId(id);
+  if (sales.length > 0) {
+    throw new Error('Não é possível excluir o produto pois ele possui vendas.');
+  }
   await ProductRepository.deleteProduct(id);
 }
 
