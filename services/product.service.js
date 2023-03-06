@@ -1,7 +1,7 @@
 import ProductRepository from '../repositories/product.repository.js';
 import SupplierRepository from '../repositories/supplier.repository.js';
 import SaleRepository from '../repositories/sale.repository.js';
-import productInfoRepository from '../repositories/productInfo.repository.js';
+import ProductInfoRepository from '../repositories/productInfo.repository.js';
 
 async function createProduct(product) {
   if (await SupplierRepository.getSupplier(product.supplierId)) {
@@ -17,7 +17,7 @@ async function getProducts() {
 
 async function getProduct(id) {
   const product = await ProductRepository.getProduct(id);
-  product.info = await productInfoRepository.getProductInfo(parseInt(id));
+  product.info = await ProductInfoRepository.getProductInfo(parseInt(id));
   return product;
 }
 
@@ -27,7 +27,7 @@ async function deleteProduct(id) {
     throw new Error('Não é possível excluir o produto pois ele possui vendas.');
   }
   await ProductRepository.deleteProduct(id);
-  await productInfoRepository.deleteProductInfo(id);
+  await ProductInfoRepository.deleteProductInfo(id);
 }
 
 async function updateProduct(product) {
@@ -39,19 +39,27 @@ async function updateProduct(product) {
 }
 
 async function createProductInfo(productInfo) {
-  await productInfoRepository.createProductInfo(productInfo);
+  await ProductInfoRepository.createProductInfo(productInfo);
 }
 
 async function updateProductInfo(productInfo) {
-  await productInfoRepository.updateProductInfo(productInfo);
+  await ProductInfoRepository.updateProductInfo(productInfo);
 }
 
 async function createReview(review, productId) {
-  await productInfoRepository.createReview(review, productId);
+  await ProductInfoRepository.createReview(review, productId);
 }
 
 async function deleteReview(productId, index) {
-  await productInfoRepository.deleteReview(parseInt(productId), index);
+  await ProductInfoRepository.deleteReview(parseInt(productId), index);
+}
+
+async function getProductsInfo() {
+  return await ProductInfoRepository.getProductsInfo();
+}
+
+async function deleteProductInfo(productId) {
+  await ProductInfoRepository.deleteProductInfo(productId);
 }
 
 export default {
@@ -62,6 +70,8 @@ export default {
   updateProduct,
   createProductInfo,
   updateProductInfo,
+  getProductsInfo,
   createReview,
   deleteReview,
+  deleteProductInfo,
 };

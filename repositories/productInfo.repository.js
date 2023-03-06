@@ -84,11 +84,29 @@ async function deleteReview(productId, index) {
   }
 }
 
+async function getProductsInfo() {
+  const client = getClient();
+
+  try {
+    await client.connect();
+    return await client
+      .db('store')
+      .collection('productInfo')
+      .find({})
+      .toArray();
+  } catch (err) {
+    throw err;
+  } finally {
+    await client.close();
+  }
+}
+
 export default {
   createProductInfo,
   updateProductInfo,
   getProductInfo,
   deleteProductInfo,
+  getProductsInfo,
   createReview,
   deleteReview,
 };
