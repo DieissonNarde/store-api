@@ -80,6 +80,21 @@ async function getSalesByProductId(productId) {
   // }
 }
 
+async function getSalesBySupplierId(supplierId) {
+  try {
+    return await Sale.findAll({
+      include: [
+        {
+          model: Product,
+          where: { supplierId },
+        },
+      ],
+    });
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getSale(id) {
   try {
     return await Sale.findByPk(id, {
@@ -166,6 +181,7 @@ export default {
   insertSale,
   getSales,
   getSalesByProductId,
+  getSalesBySupplierId,
   getSale,
   updateSale,
   deleteSale,
