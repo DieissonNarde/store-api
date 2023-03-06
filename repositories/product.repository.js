@@ -48,7 +48,7 @@ async function getProducts() {
 
 async function getProduct(id) {
   try {
-    return await Product.findByPk(id);
+    return await Product.findByPk(id, { raw: true });
   } catch (err) {
     throw err;
   }

@@ -88,6 +88,21 @@ async function createProductInfo(req, res, next) {
   }
 }
 
+async function updateProductInfo(req, res, next) {
+  try {
+    let productInfo = req.body;
+
+    if (!productInfo.productId) {
+      throw new Error('Product ID é obrigatório.');
+    }
+    await ProductService.updateProductInfo(productInfo);
+    res.end();
+    logger.info(`PUT /product/info - ${JSON.stringify(productInfo)}`);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export default {
   createProduct,
   getProducts,
@@ -95,4 +110,5 @@ export default {
   deleteProduct,
   updateProduct,
   createProductInfo,
+  updateProductInfo,
 };
