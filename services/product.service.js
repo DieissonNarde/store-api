@@ -1,6 +1,7 @@
 import ProductRepository from '../repositories/product.repository.js';
 import SupplierRepository from '../repositories/supplier.repository.js';
 import SaleRepository from '../repositories/sale.repository.js';
+import productInfoRepository from '../repositories/productInfo.repository.js';
 
 async function createProduct(product) {
   if (await SupplierRepository.getSupplier(product.supplierId)) {
@@ -34,10 +35,15 @@ async function updateProduct(product) {
   throw new Error('O id do fornecedor não existe.');
 }
 
+async function createProductInfo(productInfo) {
+  await productInfoRepository.createProductInfo(productInfo);
+}
+
 export default {
   createProduct,
   getProducts,
   getProduct,
   deleteProduct,
   updateProduct,
+  createProductInfo,
 };
