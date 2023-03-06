@@ -27,6 +27,7 @@ async function deleteProduct(id) {
     throw new Error('Não é possível excluir o produto pois ele possui vendas.');
   }
   await ProductRepository.deleteProduct(id);
+  await productInfoRepository.deleteProductInfo(id);
 }
 
 async function updateProduct(product) {
@@ -45,6 +46,14 @@ async function updateProductInfo(productInfo) {
   await productInfoRepository.updateProductInfo(productInfo);
 }
 
+async function createReview(review, productId) {
+  await productInfoRepository.createReview(review, productId);
+}
+
+async function deleteReview(productId, index) {
+  await productInfoRepository.deleteReview(parseInt(productId), index);
+}
+
 export default {
   createProduct,
   getProducts,
@@ -53,4 +62,6 @@ export default {
   updateProduct,
   createProductInfo,
   updateProductInfo,
+  createReview,
+  deleteReview,
 };

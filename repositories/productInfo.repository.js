@@ -48,4 +48,47 @@ async function getProductInfo(productId) {
   }
 }
 
-export default { createProductInfo, updateProductInfo, getProductInfo };
+async function deleteProductInfo(productId) {
+  const client = getClient();
+
+  try {
+    await client.connect();
+    return await client
+      .db('store')
+      .collection('productInfo')
+      .deleteOne({ productId });
+  } catch (err) {
+    throw err;
+  } finally {
+    await client.close();
+  }
+}
+
+async function createReview(review, productId) {
+  try {
+    const productInfo = await getProductInfo(productId);
+    productInfo.reviews.push(review);
+    await updateProductInfo(productInfo);
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function deleteReview(productId, index) {
+  try {
+    const productInfo = await getProductInfo(productId);
+    productInfo.reviews.splice(index, 1);
+    await updateProductInfo(productInfo);
+  } catch (err) {
+    throw err;
+  }
+}
+
+export default {
+  createProductInfo,
+  updateProductInfo,
+  getProductInfo,
+  deleteProductInfo,
+  createReview,
+  deleteReview,
+};
